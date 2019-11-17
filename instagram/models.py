@@ -14,7 +14,7 @@ class Profile(models.Model):
     """
     Class that contains profile details
     """
-    # bio = HTMLField()
+    bio = models.TextField()
     dp = models.ImageField(upload_to='images/', blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null="True")
 
@@ -48,7 +48,7 @@ class Profile(models.Model):
 
 class Image(models.Model):
     post = models.ImageField(upload_to='images/', blank=True)
-    # caption = HTMLField()
+    caption = models.TextField()
     posted_on = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null='True')
@@ -85,7 +85,7 @@ class Comments(models.Model):
     """
     Class that contains comments details
     """
-    # comment = HTMLField()
+    comment = models.TextField()
     posted_on = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(
         Image, on_delete=models.CASCADE, related_name='comments')
