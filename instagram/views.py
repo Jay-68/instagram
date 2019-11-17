@@ -43,6 +43,60 @@ def new_post(request):
 
 
 @login_required(login_url='/accounts/login/')
+def edit_profile(request):
+    """
+    Function that enables one to edit their profile information
+    """
+    current_user = request.user
+    profile = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.save()
+        return redirect('landing')
+    else:
+        form = ProfileForm()
+    return render(request, 'profile/edit-profile.html', {"form": form, })
+
+
+@login_required(login_url='/accounts/login/')
+def follow(request, user_id):
+    other_user = User.objects.get(id=user_id)
+    follow = Follow.objects.add_follower(request.user, other_user)
+
+    return redirect('landing')
+
+
+@login_required(login_url='/accounts/login/')
+def unfollow(request, user_id):
+    other_user = User.objects.get(id=user_id)
+
+    follow = Follow.objects.remove_follower(request.user, other_user)
+
+    return redirect('landing')
+
+
+@login_required(login_url='/accounts/login/')
+def search_user(request):
+    """
+    Function that searches for profiles based on the usernames
+    """
+    if 'username' in request.GET and request.GET["username"]:
+        name = request.GET.get("username")
+        searched_profiles = User.objects.filter(username__icontains=name)
+        message = f"{name}"
+        profiles = User.objects.all()
+        people = Follow.objects.following(request.user)
+        print(profiles)
+        return render(request, 'search.html', {"message": message, "usernames": searched_profiles, "profiles": profiles, })
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html', {"message": message})
+
+
+@login_required(login_url='/accounts/login/')
 def add_comment(request, image_id):
     images = get_object_or_404(Image, pk=image_id)
     if request.method == 'POST':
