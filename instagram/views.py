@@ -22,11 +22,11 @@ def index(request):
     '''
     images = Image.get_images().order_by('-posted_on')
     profiles = User.objects.all()
-    # people = Follow.objects.following(request.user)
+    people = Follow.objects.following(request.user)
     comments = Comments.objects.all()
     likes = Likes.objects.all()
 
-    return render(request, 'index.html', {'images': images, 'profiles': profiles, 'comments': comments, 'likes': likes})
+    return render(request, 'index.html', {'images': images, 'profiles': profiles, 'people': people, 'comments': comments, 'likes': likes})
 
 
 @login_required(login_url='/accounts/login/')
@@ -67,10 +67,10 @@ def profile(request, user_id):
     comments = Comments.objects.all()
     profiles = User.objects.get(id=user_id)
     users = User.objects.get(id=user_id)
-    # follow = len(Follow.objects.followers(users))
-    # following = len(Follow.objects.following(users))
-    # people = Follow.objects.following(request.user)
-    return render(request, 'profile/profile.html', {'title': title, "images": images, "profiles": profiles, "comments": comments})
+    follow = len(Follow.objects.followers(users))
+    following = len(Follow.objects.following(users))
+    people = Follow.objects.following(request.user)
+    return render(request, 'profile/profile.html', {'title': title, "images": images, "follow": follow, "following": following, "profiles": profiles, "people": people, "comments": comments})
 
 
 @login_required(login_url='/accounts/login/')
@@ -94,7 +94,7 @@ def edit_profile(request):
 @login_required(login_url='/accounts/login/')
 def follow(request, user_id):
     other_user = User.objects.get(id=user_id)
-    # follow = Follow.objects.add_follower(request.user, other_user)
+    follow = Follow.objects.add_follower(request.user, other_user)
 
     return redirect('home')
 
@@ -103,7 +103,7 @@ def follow(request, user_id):
 def unfollow(request, user_id):
     other_user = User.objects.get(id=user_id)
 
-    # follow = Follow.objects.remove_follower(request.user, other_user)
+    follow = Follow.objects.remove_follower(request.user, other_user)
 
     return redirect('home')
 
@@ -118,7 +118,7 @@ def search_user(request):
         searched_profiles = User.objects.filter(username__icontains=name)
         message = f"{name}"
         profiles = User.objects.all()
-        # people = Follow.objects.following(request.user)
+        people = Follow.objects.following(request.user)
         print(profiles)
         return render(request, 'search.html', {"message": message, "usernames": searched_profiles, "profiles": profiles, })
 
