@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Instagram</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,8 +8,8 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       {% if user.is_authenticated %}
-      <li><a class="pr-2" href="{%url 'newPost'%}">New Post</a></li>
-      <li><a href="/user/{{user.id}}">My Profile</a></li>
+      <li><a class="pr-2" href="{%url 'newPost'%}"> <span><img src="/static/img/compass.png" style="width:18px"></span> New Post</a></li>
+      <li><a href="/user/{{user.id}}"> <span><img src="/static/img/pro.png" style="width:10px"></span> My Profile</a></li>
       {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0" action="{% url 'search_profile' %}" method="GET">

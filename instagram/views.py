@@ -99,6 +99,35 @@ def follow(request, user_id):
     return redirect('home')
 
 
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            return HttpResponse('Click here to login.' '<a href="/accounts/login/"> click here </a>')
+    else:
+        form = SignupForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.''<a href="/accounts/login/"> click here </a>')
+    else:
+        return HttpResponse('Activation link is invalid!''<br> If you have an account <a href="/accounts/login/"> Log in here </a>')
+
+
 @login_required(login_url='/accounts/login/')
 def unfollow(request, user_id):
     other_user = User.objects.get(id=user_id)
