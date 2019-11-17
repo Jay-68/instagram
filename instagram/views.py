@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from .models import Image, Profile, Comments, Likes
+from django.contrib.auth.models import User
+from friendship.models import Friend, Follow, Block
 
 # Create your views here.
 # @login_required(login_url='/accounts/login/')

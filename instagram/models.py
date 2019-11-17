@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 import datetime as dt
-from tinymce.models import HTMLField
+# from tinymce.models import HTMLField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -14,7 +14,7 @@ class Profile(models.Model):
     """
     Class that contains profile details
     """
-    bio = HTMLField()
+    # bio = HTMLField()
     dp = models.ImageField(upload_to='images/', blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null="True")
 
@@ -48,7 +48,7 @@ class Profile(models.Model):
 
 class Image(models.Model):
     post = models.ImageField(upload_to='images/', blank=True)
-    caption = HTMLField()
+    # caption = HTMLField()
     posted_on = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null='True')
@@ -85,7 +85,7 @@ class Comments(models.Model):
     """
     Class that contains comments details
     """
-    comment = HTMLField()
+    # comment = HTMLField()
     posted_on = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(
         Image, on_delete=models.CASCADE, related_name='comments')
