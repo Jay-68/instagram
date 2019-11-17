@@ -43,6 +43,19 @@ def new_post(request):
 
 
 @login_required(login_url='/accounts/login/')
+def add_comment(request, image_id):
+    images = get_object_or_404(Image, pk=image_id)
+    if request.method == 'POST':
+        form = CommentsForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.image = images
+            comment.save()
+    return redirect('landing')
+
+
+@login_required(login_url='/accounts/login/')
 def like_post(request):
     image = get_object_or_404(Image, id=request.POST.get('image_id'))
     image.likes.add(request.user)
