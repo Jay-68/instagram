@@ -1,50 +1,21 @@
-<nav class="navbar navbar-default navbar-fixed-top"
-  style="background-color:#ffffff; border:solid #cccccc 1px; border-radius:1px;height:30px;">
-  <div class="container">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="col-sm-4 col-md-4 col-xs-4 col-lg-4 nav navbar-nav">
-        <li><a href="/"><img src="/static/img/logo.png" style="width:40px"></a></li>
-        <li class="line"><a href="/"></a></li>
-        <li><a href="/" class="insta">Instagram</a></li>
-      </ul>
-      <form class="col-sm-4 col-md-4 col-xs-4 col-lg-4 navbar-form" role="search" action="{% url 'search_profile' %}"
-        method="GET">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="&#xF002;  Search" name="username"
-            style="font-family:FontAwesome;text-align:center;">
-        </div>
-      </form>
-      <ul class="col-sm-3 col-md-3 col-xs-4 col-lg-4 nav navbar-nav" style="float:right;">
-        {% if user.is_authenticated %}
-        <li><a href="{%url 'newPost'%}"><img src="/static/img/explore.png" style="width:30px"></a></li>
-        <li><a href="#"><img src="/static/img/heart.png" style="width:30px"></a></li>
-        <li><a href="/user/{{user.id}}"><img src="/static/img/pro.png" style="width:30px"></a></li>
-        {% endif %}
-      </ul>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Instagram</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if user.is_authenticated %}
+      <li><a class="pr-2" href="{%url 'newPost'%}">New Post</a></li>
+      <li><a href="/user/{{user.id}}">My Profile</a></li>
+      {% endif %}
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search_profile' %}" method="GET">
+      <input class="form-control mr-sm-2" name="username" type="search" role="search" placeholder="Search"
+        aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
 </nav>
-
-
-<style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-
-  .line {
-    height: 35px;
-    width: 2px;
-    background-color: black;
-    margin-top: 10px;
-  }
-
-  .insta {
-    color: black !important;
-    font-family: billabong;
-    font-size: 30px;
-  }
-
-  @font-face {
-    font-family: billabong;
-    src: url('/static/fonts/Billabong.ttf');
-    font-weight: bold;
-  }
-</style>
