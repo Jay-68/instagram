@@ -4,4 +4,15 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 
 # Create your views here.
-my views for posts
+@login_required(login_url='/accounts/login/')
+def index(request):
+    '''
+    Function that returns website application landing page.
+    '''
+    images = Image.get_images().order_by('-posted_on')
+    profiles = User.objects.all()
+    people = Follow.objects.following(request.user)
+    comments = Comments.objects.all()
+    likes = Likes.objects.all()
+
+    return render(request, 'index.html', {'images': images, 'profiles': profiles, 'people': people, 'comments': comments, 'likes': likes})
