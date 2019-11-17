@@ -1,0 +1,3 @@
+autopep8==1.4.4
+django-tinymce==2.8.0
+pycodestyle==2.5.0

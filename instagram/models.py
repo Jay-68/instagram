@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth.models import User
 from django.db import models
+import datetime as dt
+from tinymce.models import HTMLField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -103,3 +107,16 @@ class Comments(models.Model):
     def get_comments_by_image_id(cls, image):
         comments = Comments.objects.get(image_id=image)
         return comments
+
+
+class Likes(models.Model):
+    user_like = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='likes')
+    liked_post = models.ForeignKey(
+        Image, on_delete=models.CASCADE, related_name='likes')
+
+    def save_like(self):
+        self.save()
+
+    def __str__(self):
+        return self.user_like
