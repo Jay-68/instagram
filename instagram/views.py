@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from .models import Image, Profile, Comments, Likes
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def index(request):
     '''
     Function that returns website application landing page.
