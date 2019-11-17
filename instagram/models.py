@@ -1,20 +1,16 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from django.contrib.auth.models import User
-from django.db import models
 import datetime as dt
-# from tinymce.models import HTMLField
+from django.db import models
+from tinymce.models import HTMLField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
-# Create your models here.
 
 
 class Profile(models.Model):
     """
     Class that contains profile details
     """
-    bio = models.TextField()
+    bio = HTMLField()
     dp = models.ImageField(upload_to='images/', blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null="True")
 
@@ -47,11 +43,14 @@ class Profile(models.Model):
 
 
 class Image(models.Model):
+    """
+    Class that contains image details
+    """
     post = models.ImageField(upload_to='images/', blank=True)
-    caption = models.TextField()
+    caption = HTMLField()
     posted_on = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null='True')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null="True")
 
     def __str__(self):
         return self.caption
@@ -62,7 +61,7 @@ class Image(models.Model):
     def save_img(self):
         self.save()
 
-    def delete_img(self):
+    def del_img(self):
         self.delete()
 
     @classmethod
@@ -85,7 +84,7 @@ class Comments(models.Model):
     """
     Class that contains comments details
     """
-    comment = models.TextField()
+    comment = HTMLField()
     posted_on = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(
         Image, on_delete=models.CASCADE, related_name='comments')

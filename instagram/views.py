@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from .forms import ImageForm, ProfileForm, CommentsForm
 from .models import Image, Profile, Comments, Likes
-# from friendship.models import Friend, Follow, Block
+from friendship.models import Friend, Follow, Block
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')

@@ -1,0 +1,42 @@
+{% extends 'registration/base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+
+
+{% block styles%}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+<div class="body">
+
+
+  {% if form.errors %}
+  <p class="small">Password or Username is incorrect</p>
+  {% endif %}
+  <div class="well">
+    <h1 class="insta">Instagram</h1>
+    <div class="form-section" id="login">
+      <form action="/accounts/login/" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+
+        <center>
+          <input type="submit" class="btn btn-info btn-md" value="Log in">
+          <p class="forgot">Don't have an account? <a href="/accounts/register/">Sign-Up</a></p>
+        </center>
+        <input type="hidden" name="next" value="/">
+      </form>
+
+    </div>
+  </div>
+  <div class="download">
+    <center>
+      <p>Get app</p>
+    </center>
+    <img src="/static/img/app1.png">
+    <img src="/static/img/app2.png">
+  </div>
+</div>
+{% endblock %}
