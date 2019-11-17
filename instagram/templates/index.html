@@ -1,0 +1,88 @@
+{%extends 'base.html' %}
+{% load static %}
+
+
+{% block styles%}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  {% for image in images %}
+  <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+    <div class="well">
+      <p class='title'><img src="/static/img/dp.jpg" alt="avatar" class="img-circle">
+        {{image.user.username}}</p>
+      <br>
+      <br>
+      <img src="{{image.post.url}}" class="img-responsive">
+      <p><strong>{{image.user.username}}</strong> {{image.caption}}</p>
+      <p><a href=" {% url 'like' image_id=image.id %}">
+          <i class="fa fa-heart-o" style="font-size:28px; color:black;"
+            aria-hidden="true"></i></a>&nbsp;&nbsp;{{image.count_likes}} likes</p>
+      <p class="text-muted">{{image.posted_on|timesince}}</p>
+      <hr>
+      <div class="demcoms">
+        <h5 class="display"><strong>Comments</strong>
+          <a class="view-more"></a>
+          {% for comment in comments %}
+          {% if comment.image_id == image.id %}
+          <li class="comments"> {{ comment.user.username }} said:
+            <span class="comment">{{ comment.comment }}</span>
+          </li>
+          {% else %}
+          {% endif %}
+          {% endfor %}
+
+          <br>
+          <br>
+          <div class="comment-input-wrapper">
+            <form action="{% url 'comment' image_id=image.id %}" method="post">
+              {% csrf_token %}
+              <input class="add-comment" name="comment" id="comment{{image.id}}" type="text"
+                placeholder="Comment on this image....">
+            </form>
+          </div>
+          <div class="hidden-data {{ image.pk }}" style="display: none;">
+            <span class="image-pk">{{ image.pk }}</span>
+          </div>
+
+
+        </h5>
+      </div>
+    </div>
+  </div>
+  {% endfor%}
+
+  <h3> <img src="/static/img/dp.jpg" alt="avatar" class="img-circle img-responsive" height="200px" width="200px"> {{user.username}}</h3>
+  <hr>
+  <p class="text-muted"> Follow other users</p>
+  <div class="list">
+    {% for profile in profiles %}
+    {% if user.username == profile.username%}
+    {%else%}
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/user/{{profile.id}}" class="others"><strong class="list-inline"><img src="/static/img/dp.jpg"
+              alt="avatar" class="img-circle" height="200px" width="200px"> {{profile.username}} </strong>
+        </a>
+      </li>
+      {% if profile in people %}
+      <li class="list-inline-item">
+        <a href="/unfollow/{{profile.id}}"><button class="btn btn-info btn-xs">Following</button></a>
+      </li>
+      {% else %}
+      <li class="list-inline-item">
+        <a href="/follow/{{profile.id}}"><button class="btn btn-info btn-xs">Follow</button></a>
+      </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+</div>
+{% endblock %}

@@ -7,19 +7,19 @@
         <li class="line"><a href="/"></a></li>
         <li><a href="/" class="insta">Instagram</a></li>
       </ul>
-      <!-- <form class="col-sm-4 col-md-4 col-xs-4 col-lg-4 navbar-form" role="search" action="{% url 'search_profile' %}"
+      <form class="col-sm-4 col-md-4 col-xs-4 col-lg-4 navbar-form" role="search" action="{% url 'search_profile' %}"
         method="GET">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="&#xF002;  Search" name="username"
             style="font-family:FontAwesome;text-align:center;">
         </div>
-      </form> -->
+      </form>
       <ul class="col-sm-3 col-md-3 col-xs-4 col-lg-4 nav navbar-nav" style="float:right;">
-        <!-- {% if user.is_authenticated %} -->
+        {% if user.is_authenticated %}
         <li><a href="{%url 'newPost'%}"><img src="/static/img/explore.png" style="width:30px"></a></li>
         <li><a href="#"><img src="/static/img/heart.png" style="width:30px"></a></li>
         <li><a href="/user/{{user.id}}"><img src="/static/img/pro.png" style="width:30px"></a></li>
-        <!-- {% endif %} -->
+        {% endif %}
       </ul>
     </div>
   </div>
