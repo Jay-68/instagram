@@ -31,8 +31,8 @@
         <h5>Comments</h5>
         {% for comment in comments %}
         {% if comment.image_id == image.id %}
-        <ul>
-          <li class="comments"> {{ comment.user.username }} says:
+        <ul class="comment">
+          <li> {{ comment.user.username }} says:
             <span class="caption">"{{ comment.comment }}"</span>
           </li>
         </ul>
