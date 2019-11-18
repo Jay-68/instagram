@@ -4,6 +4,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url('^$', views.signup, name='signup'),
     url('^$', views.index, name='home'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^upload/$', views.new_post, name='newPost'),
