@@ -6,7 +6,8 @@
 {{block.super}}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Marck+Script|Special+Elite|Yellowtail&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Marck+Script|Special+Elite|Yellowtail&display=swap"
+  rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -16,10 +17,10 @@
     <div>
       <p class='title'><img src="/static/img/dp.jpg" alt="avatar" width="200px" height="200px" class="img-circle">
         {{image.user.username}}</p>
-      <img src="{{image.post.url}}"  width="200px" height="200px" class="img-responsive">
+      <img src="{{image.post.url}}" width="200px" height="200px" class="img-responsive">
       <p class="title mx-auto"><strong>{{image.user.username}}</strong></p>
       <p class="caption">
-          {{image.caption}}
+        {{image.caption}}
       </p>
       <p><a href=" {% url 'like' image_id=image.id %}">
           <i class="fa fa-heart-o" style="font-size:28px; color:red;"
@@ -27,28 +28,30 @@
       <p class="text-muted title">{{image.posted_on|timesince}}</p>
       <hr>
       <div>
-        <h5><strong>Comments</strong>
-          {% for comment in comments %}
-          {% if comment.image_id == image.id %}
-          <li class="comments"> {{ comment.user.username }} comments:
-            <span class="comment">"{{ comment.comment }}"</span>
+        <h5>Comments</h5>
+        {% for comment in comments %}
+        {% if comment.image_id == image.id %}
+        <ul>
+          <li class="comments"> {{ comment.user.username }} says:
+            <span class="caption">"{{ comment.comment }}"</span>
           </li>
-          {% else %}
-          {% endif %}
-          {% endfor %}
+        </ul>
 
-          <br>
-          <br>
-          <div class="form-control">
-            <form action="{% url 'comment' image_id=image.id %}" method="post">
-              {% csrf_token %}
-              <input class="add-comment" name="comment" id="comment{{image.id}}" type="text"
-                placeholder="comment">
-            </form>
-          </div>
-          <div class="hidden-data {{ image.pk }}" style="display: none;">
-            <span class="image-pk">{{ image.pk }}</span>
-          </div>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+
+        <br>
+        <br>
+        <div class="form-control">
+          <form action="{% url 'comment' image_id=image.id %}" method="post">
+            {% csrf_token %}
+            <input class="add-comment" name="comment" id="comment{{image.id}}" type="text" placeholder="comment">
+          </form>
+        </div>
+        <div class="hidden-data {{ image.pk }}" style="display: none;">
+          <span class="image-pk">{{ image.pk }}</span>
+        </div>
 
 
         </h5>
@@ -57,7 +60,8 @@
   </div>
   {% endfor%}
 
-  <h3> <img src="/static/img/dp.jpg" alt="avatar" class="img-circle img-responsive" height="200px" width="200px"> {{user.username}}</h3>
+  <h3> <img src="/static/img/dp.jpg" alt="avatar" class="img-circle img-responsive" height="200px" width="200px">
+    {{user.username}}</h3>
   <hr>
   <p class="text-muted"> Follow other users</p>
   <div>
