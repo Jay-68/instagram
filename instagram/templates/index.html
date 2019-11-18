@@ -6,27 +6,28 @@
 {{block.super}}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Marck+Script|Special+Elite|Yellowtail&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <div class="container">
   {% for image in images %}
-  <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-    <div class="well">
+  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-7">
+    <div>
       <p class='title'><img src="/static/img/dp.jpg" alt="avatar" width="200px" height="200px" class="img-circle">
         {{image.user.username}}</p>
-      <br>
-      <br>
       <img src="{{image.post.url}}"  width="200px" height="200px" class="img-responsive">
-      <p><strong>{{image.user.username}}</strong> {{image.caption}}</p>
+      <p class="title mx-auto"><strong>{{image.user.username}}</strong></p>
+      <p class="caption">
+          {{image.caption}}
+      </p>
       <p><a href=" {% url 'like' image_id=image.id %}">
-          <i class="fa fa-heart-o" style="font-size:28px; color:black;"
+          <i class="fa fa-heart-o" style="font-size:28px; color:red;"
             aria-hidden="true"></i></a>&nbsp;&nbsp;{{image.count_likes}} likes</p>
-      <p class="text-muted">{{image.posted_on|timesince}}</p>
+      <p class="text-muted title">{{image.posted_on|timesince}}</p>
       <hr>
-      <div class="demcoms">
-        <h5 class="display"><strong>Comments</strong>
-          <a class="view-more"></a>
+      <div>
+        <h5><strong>Comments</strong>
           {% for comment in comments %}
           {% if comment.image_id == image.id %}
           <li class="comments"> {{ comment.user.username }} comments:
@@ -38,11 +39,11 @@
 
           <br>
           <br>
-          <div class="comment-input-wrapper">
+          <div class="form-control">
             <form action="{% url 'comment' image_id=image.id %}" method="post">
               {% csrf_token %}
               <input class="add-comment" name="comment" id="comment{{image.id}}" type="text"
-                placeholder="Comment on this image....">
+                placeholder="comment">
             </form>
           </div>
           <div class="hidden-data {{ image.pk }}" style="display: none;">
@@ -59,7 +60,7 @@
   <h3> <img src="/static/img/dp.jpg" alt="avatar" class="img-circle img-responsive" height="200px" width="200px"> {{user.username}}</h3>
   <hr>
   <p class="text-muted"> Follow other users</p>
-  <div class="list">
+  <div>
     {% for profile in profiles %}
     {% if user.username == profile.username%}
     {%else%}

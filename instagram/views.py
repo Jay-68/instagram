@@ -170,10 +170,11 @@ def add_comment(request, image_id):
 
 
 def like(request, image_id):
-    current_user = request.user
-    liked_post = Image.objects.get(id=image_id)
-    new_like, created = Likes.objects.get_or_create(
-        user_like=current_user, liked_post=liked_post)
-    new_like.save()
+    pass
+    # current_user = request.user
+    # liked_post = Image.objects.get(id=image_id)
+    # new_like, created = Likes.objects.get_or_create(
+    #     user_like=current_user, liked_post=liked_post)
+    # new_like.save()
 
-    return redirect('home')
+    # return redirect('home')
