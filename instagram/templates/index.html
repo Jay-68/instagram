@@ -29,8 +29,8 @@
           <a class="view-more"></a>
           {% for comment in comments %}
           {% if comment.image_id == image.id %}
-          <li class="comments"> {{ comment.user.username }} comments: <br>
-            <span class="comment">{{ comment.comment }}</span>
+          <li class="comments"> {{ comment.user.username }} comments:
+            <span class="comment">"{{ comment.comment }}"</span>
           </li>
           {% else %}
           {% endif %}

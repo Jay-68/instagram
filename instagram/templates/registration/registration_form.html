@@ -8,39 +8,31 @@
 {% endblock %}
 {% block content %}
 
-<div class="phones">
-  <img src="/static/img/igphone.png">
-
-</div>
-<div class="well">
-  <h1 class="insta">Instagram</h1>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-      <small style="display: none">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
+<div class="row">
+  <div class="mx-auto pt-5">
+    <h1 class="">Instagram</h1>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        <small style="display: none">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
       {% endfor %}
-    </p>
-    {% endfor %}
-    <center>
-      <button class="btn btn-info btn-md" type="submit">Sign up</button>
-      <p class="forgot">Have an account? <a href="/accounts/login/">Log in</a></p>
+      <div class="text-center">
+        <button class="btn btn-outline-info btn-sm" type="submit">Sign up</button>
+        <p class="forgot">Already have an account? <a href="/accounts/login/">Log in</a></p>
+      </div>
+    </form>
+  </div>
 </div>
-</center>
-</form>
-</div>
-<div class="download">
-  <center>
-    <p class="app">Get the app</p>
-  </center>
-  <img src="/static/img/app1.png" class="logs">
-  <img src="/static/img/app2.png" class="logs">
-</div>
+
+
 
 {% endblock %}
