@@ -7,7 +7,7 @@
 {% endblock %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top mb-2 pt-3">
-  <a class="navbar-brand" href="/"><span><img class="pt-0" src="/static/img/instagram-brands.svg" style="width:23px"> | Instagram</a>
+  <a class="navbar-brand" href="/"><img class="pt-0" src="/static/img/instagram-brands.svg" style="width:18px"><span class=""> | <span class="nbrand">Instagram</span> </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -22,6 +22,7 @@
       {% if user.is_authenticated %}
       <li><a class="pl-3" href="{%url 'newPost'%}"> <span><img src="/static/img/plus-circle-solid.svg" style="width:25px"></span></a></li>
       <li><a class="pl-3" href="/user/{{user.id}}"> <span><img src="/static/img/user-circle-regular.svg" style="width:25px"></span></a></li>
+      <li><a class="pl-3" href="{%url 'signup'%}"> <span><img src="/static/img/sign-out-alt-solid.svg" style="width:25px"></span></a></li>
       {% endif %}
     </ul>
   </div>

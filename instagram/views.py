@@ -112,20 +112,20 @@ def signup(request):
     return render(request, 'registration/login.html', {'form': form})
 
 
-def activate(request, uidb64, token):
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.''<a href="/accounts/login/"> click here </a>')
-    else:
-        return HttpResponse('Activation link is invalid!''<br> If you have an account <a href="/accounts/login/"> Log in here </a>')
+# def activate(request, uidb64, token):
+#     try:
+#         uid = force_text(urlsafe_base64_decode(uidb64))
+#         user = User.objects.get(pk=uid)
+#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+#     if user is not None and account_activation_token.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         # return redirect('home')
+#         return HttpResponse('Thank you for your email confirmation. Now you can login your account.''<a href="/accounts/login/"> click here </a>')
+#     else:
+#         return HttpResponse('Activation link is invalid!''<br> If you have an account <a href="/accounts/login/"> Log in here </a>')
 
 
 @login_required(login_url='/accounts/login/')
@@ -146,13 +146,13 @@ def search_user(request):
         name = request.GET.get("username")
         searched_profiles = User.objects.filter(username__icontains=name)
         message = f"{name}"
-        # profiles = User.objects.all()
+        profiles = User.objects.all()
         # people = Follow.objects.following(request.user)
         print(profiles)
         return render(request, 'search.html', {"message": message, "usernames": searched_profiles, "profiles": profiles, })
 
     else:
-        message = "You haven't searched for any term"
+        message = "Enter search term"
         return render(request, 'search.html', {"message": message})
 
 
@@ -171,10 +171,10 @@ def add_comment(request, image_id):
 
 def like(request, image_id):
     pass
-    # current_user = request.user
-    # liked_post = Image.objects.get(id=image_id)
-    # new_like, created = Likes.objects.get_or_create(
-    #     user_like=current_user, liked_post=liked_post)
-    # new_like.save()
+    current_user = request.user
+    liked_post = Image.objects.get(id=image_id)
+    new_like, created = Likes.objects.get_or_create(
+        user_like=current_user, liked_post=liked_post)
+    new_like.save()
 
-    # return redirect('home')
+    return redirect('home')
