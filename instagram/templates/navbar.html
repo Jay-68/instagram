@@ -17,12 +17,11 @@
       <form class="form-inline ml-auto" action="{% url 'search_profile' %}" method="GET">
           <input class="form-control mr-sm-2" name="username" type="search" role="search" placeholder="Search"
             aria-label="Search">
-          <!-- <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button> -->
         </form>
     <ul class="navbar-nav ml-auto">
       {% if user.is_authenticated %}
-      <li><a href="{%url 'newPost'%}"> <span><img src="/static/img/plus-circle-solid.svg" style="width:23px"></span></a></li>
-      <li><a class="pl-3" href="/user/{{user.id}}"> <span><img src="/static/img/user-circle-regular.svg" style="width:23px"></span></a></li>
+      <li><a class="pl-3" href="{%url 'newPost'%}"> <span><img src="/static/img/plus-circle-solid.svg" style="width:25px"></span></a></li>
+      <li><a class="pl-3" href="/user/{{user.id}}"> <span><img src="/static/img/user-circle-regular.svg" style="width:25px"></span></a></li>
       {% endif %}
     </ul>
   </div>

@@ -19,3 +19,18 @@ body {
 .comment {
   list-style-type: none;
 }
+
+.comment-form input {
+  border: 1px solid grey;
+  background-color: #dde2e3;
+}
+
+.list-deco>ul>li>a {
+  color: black;
+    text-decoration: none;
+}
+
+.list-deco>ul>li>a:hover {
+  color: orangered;
+  text-decoration: none;
+}

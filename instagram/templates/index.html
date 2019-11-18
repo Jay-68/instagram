@@ -12,82 +12,88 @@
 
 {% block content %}
 <div class="container">
-  {% for image in images %}
-  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-7">
-    <div>
-      <p class='title'><img src="/static/img/dp.jpg" alt="avatar" width="200px" height="200px" class="img-circle">
-        {{image.user.username}}</p>
-      <img src="{{image.post.url}}" width="200px" height="200px" class="img-responsive">
-      <p class="title mx-auto"><strong>{{image.user.username}}</strong></p>
-      <p class="caption">
-        {{image.caption}}
-      </p>
-      <p><a href=" {% url 'like' image_id=image.id %}">
-          <i class="fa fa-heart-o" style="font-size:28px; color:red;"
-            aria-hidden="true"></i></a>&nbsp;&nbsp;{{image.count_likes}} likes</p>
-      <p class="text-muted title">{{image.posted_on|timesince}}</p>
-      <hr>
+  <div class="row">
+    <div class="col-md-8">
+        {% for image in images %}
       <div>
-        <h5>Comments</h5>
-        {% for comment in comments %}
-        {% if comment.image_id == image.id %}
-        <ul class="comment">
-          <li> {{ comment.user.username }} says:
-            <span class="caption">"{{ comment.comment }}"</span>
-          </li>
-        </ul>
+        <img src="{{image.post.url}}" width="200px" height="200px" class="img-responsive">
+        <p class="title mx-auto"><strong>{{image.user.username}}</strong></p>
+        <p class="caption">
+          {{image.caption}}
+        </p>
+        <p><a href=" {% url 'like' image_id=image.id %}">
+            <i class="fa fa-heart-o" style="font-size:28px; color:red;"
+              aria-hidden="true"></i></a>&nbsp;&nbsp;{{image.count_likes}} likes</p>
+        <p class="text-muted title">{{image.posted_on|timesince}}</p>
+        <hr>
+        <div>
+          <h6>Comments</h6>
+          {% for comment in comments %}
+          {% if comment.image_id == image.id %}
+          <ul class="comment">
+            <li> {{ comment.user.username }} says:
+              <span class="caption">"{{ comment.comment }}"</span>
+            </li>
+          </ul>
 
-        {% else %}
+          {% else %}
+          {% endif %}
+          {% endfor %}
+
+          <br>
+          <br>
+          <div class="comment-form">
+            <form action="{% url 'comment' image_id=image.id %}" method="post">
+              {% csrf_token %}
+              <input class="p-1 mb-2" class="form-control form-control-sm" name="comment" id="comment{{image.id}}"
+                type="text" placeholder="comment">
+              <span>
+                <button class="btn btn-outline-info my-2 my-sm-0 btn-sm p-1" type="submit">Comment</button>
+              </span>
+            </form>
+          </div>
+          <div class="hidden-data {{ image.pk }}" style="display: none;">
+            <span class="image-pk">{{ image.pk }}</span>
+          </div>
+
+
+          </h5>
+        </div>
+      </div>
+      {% endfor%}
+    </div>
+
+    <div class="col-md-4">
+      <p class="text-muted"> Follow other users</p> <hr>
+      <div class="list-deco">
+        {% for profile in profiles %}
+        {% if user.username == profile.username%}
+        {%else%}
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="/user/{{profile.id}}" class="others"><img src="/static/img/dp.jpg"
+                  alt="avatar" class="img-circle" height="200px" width="200px"> {{profile.username}}
+            </a>
+          </li>
+          {% if profile in people %}
+          <li class="list-inline-item">
+            <a href="/unfollow/{{profile.id}}"><button class="btn btn-success btn-sm">Following</button></a>
+          </li>
+          {% else %}
+          <li class="list-inline-item">
+            <a href="/follow/{{profile.id}}"><button class="btn btn-success btn-sm">Follow</button></a>
+          </li>
+          {% endif %}
+        </ul>
         {% endif %}
         {% endfor %}
-
-        <br>
-        <br>
-        <div class="form-control">
-          <form action="{% url 'comment' image_id=image.id %}" method="post">
-            {% csrf_token %}
-            <input class="add-comment" name="comment" id="comment{{image.id}}" type="text" placeholder="comment">
-          </form>
-        </div>
-        <div class="hidden-data {{ image.pk }}" style="display: none;">
-          <span class="image-pk">{{ image.pk }}</span>
-        </div>
-
-
-        </h5>
       </div>
     </div>
-  </div>
-  {% endfor%}
 
-  <h3> <img src="/static/img/dp.jpg" alt="avatar" class="img-circle img-responsive" height="200px" width="200px">
-    {{user.username}}</h3>
-  <hr>
-  <p class="text-muted"> Follow other users</p>
-  <div>
-    {% for profile in profiles %}
-    {% if user.username == profile.username%}
-    {%else%}
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        <a href="/user/{{profile.id}}" class="others"><strong class="list-inline"><img src="/static/img/dp.jpg"
-              alt="avatar" class="img-circle" height="200px" width="200px"> {{profile.username}} </strong>
-        </a>
-      </li>
-      {% if profile in people %}
-      <li class="list-inline-item">
-        <a href="/unfollow/{{profile.id}}"><button class="btn btn-info btn-xs">Following</button></a>
-      </li>
-      {% else %}
-      <li class="list-inline-item">
-        <a href="/follow/{{profile.id}}"><button class="btn btn-info btn-xs">Follow</button></a>
-      </li>
-      {% endif %}
-    </ul>
-    {% endif %}
-    {% endfor %}
   </div>
-</div>
+
+
 
 </div>
+
 {% endblock %}
