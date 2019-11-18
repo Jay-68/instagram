@@ -7,7 +7,7 @@ class ProfileTestClass(TestCase):
     """
     Test profile class and its functions
     """
-
+    
     def setUp(self):
 
         # creating an new profile
