@@ -11,12 +11,12 @@
     <!-- {% if form.errors %}
   <p class="small">Password or Username is incorrect</p>
   {% endif %} -->
-  <div class="container">
+  <div class="container main">
     <div class="row pt-2">
       <div class="col-md-3 mx-auto">
         <div class="form-section">
           <h1 class="mx-auto text-center">Instagram</h1>
-          <form action="/accounts/login/" method="POST">
+          <form class="nbrand" action="/accounts/login/" method="POST">
             {% csrf_token %}
             {% bootstrap_form form %}
             <div class="font-weight-bold">

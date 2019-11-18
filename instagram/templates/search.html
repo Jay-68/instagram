@@ -29,11 +29,11 @@
         </li>
         {% if user in people %}
         <li class="list-inline-item">
-          <a href="/unfollow/{{user.id}}"><button class="btn btn-info btn-md">Following</button></a>
+          <a href="/unfollow/{{user.id}}"><button class="btn btn-info btn-sm">Following</button></a>
         </li>
         {% else %}
         <li class="list-inline-item">
-          <a href="/follow/{{user.id}}"><button class="btn btn-info btn-md">Follow</button></a>
+          <a href="/follow/{{user.id}}"><button class="btn btn-info btn-sm">Follow</button></a>
         </li>
         {% endif %}
       </ul>

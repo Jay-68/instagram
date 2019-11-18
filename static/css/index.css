@@ -27,14 +27,25 @@ body {
 
 .list-deco>ul>li>a {
   color: black;
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .list-deco>ul>li>a:hover {
   color: orangered;
   text-decoration: none;
 }
-.hor{
+
+.hor {
   width: 100%;
   border: 0.7px solid black;
+}
+
+.pl-3 {
+  color: black;
+  text-decoration: none;
+}
+
+.pl-3:hover {
+  color: crimson;
+  text-decoration: none;
 }
