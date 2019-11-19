@@ -52,7 +52,7 @@ class ImageTestClass(TestCase):
         self.profile = Profile(bio='This is my bio')
         self.profile.save_profile()
         # creating an new image
-        self.image = Image(post='test.jpg', caption='Fun times with bae',
+        self.image = Image(post='test.jpg', caption='Caption',
                            posted_on='Monday', profile=self.profile)
 
     def test_instance(self):
@@ -79,9 +79,9 @@ class ImageTestClass(TestCase):
         """
         self.image.save_img()
         new_image = Image.objects.filter(
-            caption='Fun times with bae').update(caption='Fun times')
-        images = Image.objects.get(caption='Fun times')
-        self.assertTrue(images.caption, 'Fun times')
+            caption='caption ').update(caption='caption')
+        images = Image.objects.get(caption='caption')
+        self.assertTrue(images.caption, 'caption')
 
 
 class CommentsTestClass(TestCase):
@@ -95,7 +95,7 @@ class CommentsTestClass(TestCase):
         self.profile = Profile(bio='This is my bio')
         self.profile.save_profile()
         # creating an new image and saving it
-        self.image = Image(post='test.jpg', caption='Fun times with bae',
+        self.image = Image(post='test.jpg', caption='caption',
                            posted_on='Monday', profile=self.profile)
         self.image.save_img()
         # creating a new comment and saving it
